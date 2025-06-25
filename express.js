@@ -1,36 +1,52 @@
+// server side
 const express = require("express");
-const path = require("path");
-const http = require("http");
-const socketIo = require("socket.io");
-
+// express server
 const app = express();
-const server = http.createServer(app);
-const io = socketIo(server);
-
-// Serve static files from the 'public' directory
+//  nodejs
+const server = require("http").Server(app);
+// nodejs => socket enabled
+const path = require("path");
+const io = require("socket.io")(server);
+// serve static assets to client
 app.use(express.static("public"));
 
-// Socket.io connections
-io.on("connection", (socket) => {
-  console.log("New client connected:", socket.id);
+// server
+io.on("connection", function(socket) {
+  socket.on("size", function(size) {
+    socket.broadcast.emit("onsize", size);
+  });
+  socket.on("color", function(color) {
+    socket.broadcast.emit("oncolor", color);
+  });
 
-  const forwardEvent = (eventName) => {
-    socket.on(eventName, (data) => {
-      socket.broadcast.emit("on" + eventName, data);
-    });
-  };
-
-  // List of custom events
-  const events = ["size", "color", "toolchange", "hamburger", "mousedown", "mousemove", "undo", "redo"];
-  events.forEach(forwardEvent);
-
-  socket.on("disconnect", () => {
-    console.log("Client disconnected:", socket.id);
+  socket.on("toolchange", function(tool) {
+    socket.broadcast.emit("ontoolchange", tool);
+  });
+  socket.on("hamburger", function() {
+    socket.broadcast.emit("onhamburger");
+  });
+  socket.on("mousedown", function(point) {
+    socket.broadcast.emit("onmousedown", 
+    point);
+  });
+  socket.on("mousemove", function(point) {
+    socket.broadcast.emit("onmousemove", point);
+  });
+  socket.on("undo", function() {
+    socket.broadcast.emit("onundo");
+  });
+  socket.on("redo", function() {
+    socket.broadcast.emit("onredo");
   });
 });
-
-// Start server
+// nodejs server
 const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+io.on("connection", function(socket) {
+  console.log("A user connected:", socket.id);
+
+  // Your existing listeners
+});
+//
