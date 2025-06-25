@@ -88,3 +88,8 @@ function getLocation() {
   const { top } = board.getBoundingClientRect();
   return top;
 }
+window.clearCanvas = function () {
+  ctx.clearRect(0, 0, board.width, board.height);
+  undoStack.length = 0; // Optional: reset history stack too
+};
+

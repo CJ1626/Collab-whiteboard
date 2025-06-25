@@ -43,7 +43,7 @@
                         onclick="handleLocaltoolChange('eraser')">
                     <div class="tool-options eraser">
                         <div class="eraser-size">
-                            <input type="range" id="eraser-size" min="8" max=30 onchange="sizeChange(this.value)">
+                            <input type="range" id="eraser-size" min="5" max=30 onchange="sizeChange(this.value)">
                         </div>
                     </div>
                 </div>
@@ -71,10 +71,13 @@
                 <div class="tool">
                     <img src="./NewIcons/Redo.svg" alt="" class="tool-img redo">
                 </div>
+                <div class="tool">
+                    <img src="NewIcons/clear.svg" class="tool-img clear-tool" onclick="clearCanvas()" />
+                </div>
             </div>
         </div>
         <!-- notes dom create -->
-        <canvas class="board">
+        <canvas id="canvass" class="board">
         </canvas>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js" crossorigin></script>

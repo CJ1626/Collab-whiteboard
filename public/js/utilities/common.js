@@ -153,4 +153,8 @@ function redoMaker() {
   return false;
 }
 
+function getMouse(e) {
+  const top = board.getBoundingClientRect().top;
+  return { x: e.clientX, y: e.clientY - top };
+}
 
