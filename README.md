@@ -25,9 +25,9 @@ final/
 INSTRUCTIONS
 
 Clone the Repository
-git clone https://github.com/CJ1626/Collab-whiteboard.git
-cd Collab-whiteboard
-npm install
-npm start
+"git clone https://github.com/CJ1626/Collab-whiteboard.git"
+"cd Collab-whiteboard"
+"npm install"
+"npm start"
 Then open your browser and navigate to:
 http://localhost:3000
